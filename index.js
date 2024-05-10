@@ -55,7 +55,7 @@ app.post("/webradar/data", (req, res) => {
     });
   }
 
-  gameData = GameData;
+  gameData = GameData || null;
 
   return res.status(200).json({
     code: 200,
