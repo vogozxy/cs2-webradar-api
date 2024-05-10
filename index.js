@@ -16,7 +16,7 @@ app.use(
   })
 );
 
-app.get("/sse", (req, res) => {
+app.get("/webradar/sse", (req, res) => {
   res.writeHead(200, {
     "Access-Control-Allow-Origin": "*",
     "Content-Type": "text/event-stream; charset=utf-8",
@@ -38,7 +38,7 @@ app.get("/sse", (req, res) => {
   });
 });
 
-app.post("/data", (req, res) => {
+app.post("/webradar/data", (req, res) => {
   const { auth, game_data: GameData } = req.body;
 
   if (auth !== process.env.SECRET) {
