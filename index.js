@@ -1,12 +1,10 @@
-/* eslint-disable import/extensions */
-
 import "dotenv/config";
 import express from "express";
 
-import logger from "./logger.js";
+import logger from "./logger";
 
 const app = express();
-const PORT = process.env.PORT || 49105;
+const PORT = process.env.PORT || 49101;
 
 let gameData = null;
 
