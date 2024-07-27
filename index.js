@@ -1,7 +1,9 @@
+/* eslint-disable import/extensions */
+
 import "dotenv/config";
 import express from "express";
 
-import logger from "./logger";
+import logger from "./logger.js";
 
 const app = express();
 const PORT = process.env.PORT || 49101;
