@@ -42,10 +42,6 @@ app.post("/webradar/data", (req, res) => {
   const { auth, game_data: GameData } = req.body;
 
   if (auth !== process.env.SECRET) {
-    logger.warn(
-      `Someone is trying to access the API. [POST ${req.path} from ${req.ip}]`
-    );
-
     return res.status(200).json({
       code: 200,
       status: "OK",
