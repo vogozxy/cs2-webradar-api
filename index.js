@@ -39,8 +39,7 @@ app.get("/webradar/sse", (req, res) => {
 });
 
 app.post("/webradar/data", (req, res) => {
-  const { auth, game_data: GameData } = req.body;
-
+  const auth = req.get("X-Auth");
   if (auth !== process.env.SECRET) {
     return res.status(200).json({
       code: 200,
@@ -50,6 +49,34 @@ app.post("/webradar/data", (req, res) => {
       },
     });
   }
+
+  const { game_data: GameData } = req.body;
+
+  gameData = GameData || null;
+
+  return res.status(200).json({
+    code: 200,
+    status: "OK",
+    data: {
+      messages: "Player data received!",
+    },
+  });
+});
+
+app.get("/webradar/data", (req, res) => {
+  const auth = req.get("X-Auth");
+  if (auth !== process.env.SECRET) {
+    return res.status(200).json({
+      code: 200,
+      status: "OK",
+      data: {
+        messages: "Player data received!",
+      },
+    });
+  }
+
+  const data = req.get("X-Data");
+  const { game_data: GameData } = JSON.parse(data);
 
   gameData = GameData || null;
 
