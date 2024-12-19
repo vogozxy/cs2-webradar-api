@@ -50,9 +50,12 @@ app.post("/webradar/data", (req, res) => {
     });
   }
 
-  const { game_data: GameData } = req.body;
-
-  gameData = GameData || null;
+  try {
+    const { game_data: GameData } = req.body;
+    gameData = GameData || null;
+  } catch (error) {
+    gameData = null;
+  }
 
   return res.status(200).json({
     code: 200,
@@ -75,10 +78,13 @@ app.get("/webradar/data", (req, res) => {
     });
   }
 
-  const data = req.get("X-Data");
-  const { game_data: GameData } = JSON.parse(data);
-
-  gameData = GameData || null;
+  try {
+    const data = req.get("X-Data");
+    const { game_data: GameData } = JSON.parse(data);
+    gameData = GameData || null;
+  } catch (error) {
+    gameData = null;
+  }
 
   return res.status(200).json({
     code: 200,
