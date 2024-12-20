@@ -1,9 +1,5 @@
-/* eslint-disable import/extensions */
-
 import "dotenv/config";
 import express from "express";
-
-import logger from "./logger.js";
 
 const app = express();
 const PORT = process.env.PORT || 49101;
@@ -96,7 +92,7 @@ app.get("/webradar/data", (req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  logger.error(err.stack);
+  console.error(err.stack);
 
   return res.status(err.status).json({
     code: err.status,
@@ -107,5 +103,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  logger.info(`Ready! Webradar server is listening on port ${PORT}.`);
+  console.info(`Ready! Webradar server is listening on port ${PORT}.`);
 });
