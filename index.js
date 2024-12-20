@@ -1,7 +1,16 @@
 import "dotenv/config";
+import { createServer } from "node:http";
 import express from "express";
+import { Server } from "socket.io";
 
 const app = express();
+const server = createServer(app);
+const io = new Server(server, {
+  path: "/webradar/socket",
+  cors: {
+    origin: "*",
+  },
+});
 const PORT = process.env.PORT || 49101;
 
 let gameData = null;
@@ -33,6 +42,10 @@ app.get("/webradar/sse", (req, res) => {
     res.end();
   });
 });
+
+setInterval(() => {
+  io.emit("data", gameData);
+}, 50);
 
 app.post("/webradar/data", (req, res) => {
   const auth = req.get("X-Auth");
@@ -102,6 +115,6 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.info(`Ready! Webradar server is listening on port ${PORT}.`);
 });
