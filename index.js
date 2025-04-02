@@ -50,13 +50,7 @@ setInterval(() => {
 app.post("/webradar/data", (req, res) => {
   const auth = req.get("X-Auth");
   if (auth !== process.env.SECRET) {
-    return res.status(200).json({
-      code: 200,
-      status: "OK",
-      data: {
-        messages: "Player data received!",
-      },
-    });
+    return res.status(401).end();
   }
 
   try {
@@ -78,13 +72,7 @@ app.post("/webradar/data", (req, res) => {
 app.get("/webradar/data", (req, res) => {
   const auth = req.get("X-Auth");
   if (auth !== process.env.SECRET) {
-    return res.status(200).json({
-      code: 200,
-      status: "OK",
-      data: {
-        messages: "Player data received!",
-      },
-    });
+    return res.status(401).end();
   }
 
   try {
